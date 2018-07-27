@@ -13,7 +13,7 @@ function waitUntilGoServerStarts {
 }
 
 function startGoAgent {
-    docker run -d \
+    CONTAINER_ID=$(docker run -d \
     --net=host \
     -e WORKDIR=$(pwd)/GoAgentData \
     -e GO_SERVER_URL=https://localhost:8154/go \
@@ -22,7 +22,7 @@ function startGoAgent {
     -e AGENT_AUTO_REGISTER_KEY=$(extractAgentAutoRegistryKey) \
     -e AGENT_AUTO_REGISTER_RESOURCES=docker \
     -e AGENT_AUTO_REGISTER_HOSTNAME=agent1 \
-    goagent-with-docker:latest
+    goagent-with-docker:latest) && docker exec -i -u root $CONTAINER_ID chmod 666 /var/run/docker.sock
 }
 
 function startGoServer {
