@@ -1,6 +1,6 @@
-FROM gocd/gocd-agent-ubuntu-16.04:v18.6.0
+FROM gocd/gocd-agent-ubuntu-16.04:v18.7.0
 COPY rancher-compose-install.sh /opt
-RUN apt-get update && apt-get install -y docker.io
 WORKDIR /opt
-RUN usermod -a -G docker go
+RUN curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh && rm get-docker.sh
+RUN usermod -aG docker go
 RUN chmod +x rancher-compose-install.sh && ./rancher-compose-install.sh 0.12.5

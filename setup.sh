@@ -18,6 +18,7 @@ function startGoAgent {
     -e WORKDIR=$(pwd)/GoAgentData \
     -e GO_SERVER_URL=https://localhost:8154/go \
     -v $(pwd)/GoAgentData:/godata \
+    -v /var/run/docker.sock:/var/run/docker.sock \
     -e AGENT_AUTO_REGISTER_KEY=$(extractAgentAutoRegistryKey) \
     -e AGENT_AUTO_REGISTER_RESOURCES=docker \
     -e AGENT_AUTO_REGISTER_HOSTNAME=agent1 \
@@ -33,8 +34,8 @@ function startGoServer {
 }
 
 #docker pull gocd server and agent image
-docker pull gocd/gocd-agent-ubuntu-16.04:v18.6.0
-docker pull gocd/gocd-server:v18.6.0
+docker pull gocd/gocd-agent-ubuntu-16.04:v18.7.0
+docker pull gocd/gocd-server:v18.7.0
 
 #docker build go agent with docker and rancher compose
 docker build -t goagent-with-docker:latest .
