@@ -46,3 +46,6 @@ startGoServer \
 && echo "go server started" \
 && startGoAgent \
 && echo "go agent started"
+
+echo "setting pipeline as code"
+./pipeline-as-code.sh
