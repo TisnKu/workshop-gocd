@@ -11,6 +11,11 @@ CONTENT="<config-repos>
   </config-repos>"
 
 C=$(echo $CONTENT | sed 's/\//\\\//g')
-sed -i '' "7i\\
-$C\\
-" GoServerData/config/cruise-config.xml
+
+#sed -i '' "s/<\/cruise>/$C&/" GoServerData/config/cruise-config.xml
+
+#sed -i '' "4i\\
+#$C\\
+#" GoServerData/config/cruise-config.xml
+
+sed -i '' "s/<server[^>]*>/&$C/g" GoServerData/config/cruise-config.xml
