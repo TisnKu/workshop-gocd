@@ -33,9 +33,8 @@ function startGoServer {
     gocd/gocd-server:v18.6.0
 }
 
-#docker pull gocd server and agent image
-docker pull gocd/gocd-agent-ubuntu-16.04:v18.7.0
-docker pull gocd/gocd-server:v18.7.0
+#setup nexus server
+./setup-nexus.sh
 
 #docker build go agent with docker and rancher compose
 docker build -t goagent-with-docker:latest .
