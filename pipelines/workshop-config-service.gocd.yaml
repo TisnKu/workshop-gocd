@@ -1,0 +1,34 @@
+pipelines:
+  workshop-config-service:
+    group: workshop
+    label_template: "${COUNT}"
+    locking: off
+    # setting materials
+    materials:
+      app:
+        git: https://github.com/wuhan-learning/mst-config-server.git
+        branch: master
+    # setting stages
+    stages:
+      - build:
+          clean_workspace: yes
+          jobs:
+            build:
+              tasks:
+                - exec:
+                    command: bash
+                    arguments:
+                      - "-e"
+                      - "./scripts/build.sh"
+                    run_if: passed
+      - deploy:
+          clean_workspace: yes
+          jobs:
+            deploy:
+              tasks:
+                - exec:
+                    command: bash
+                    arguments:
+                      - "-e"
+                      - "./scripts/deploy.sh"
+                    run_if: passed
