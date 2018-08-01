@@ -30,7 +30,7 @@ pipelines:
                     command: bash
                     arguments:
                       - "-e"
-                      - "export DOCKER_REGISRTY=127.0.0.1; ./scripts/build.sh"
+                      - "./scripts/build.sh"
                     run_if: passed
       - deploy:
           clean_workspace: yes
