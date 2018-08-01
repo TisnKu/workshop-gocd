@@ -25,6 +25,8 @@ pipelines:
           clean_workspace: yes
           jobs:
             build:
+              environment_variables:
+                DOCKER_REGISRTY: 127.0.0.1
               tasks:
                 - exec:
                     command: bash
