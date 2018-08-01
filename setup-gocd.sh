@@ -1,4 +1,5 @@
 #!/bin/bash
+-e
 
 function extractAgentAutoRegistryKey {
     echo $(grep 'agentAutoRegisterKey' GoServerData/config/cruise-config.xml | awk -F"agentAutoRegisterKey=\"" '{print $2}' | awk -F"\" webhookSecret" '{print $1}')
@@ -22,7 +23,9 @@ function startGoAgent {
     -e AGENT_AUTO_REGISTER_KEY=$(extractAgentAutoRegistryKey) \
     -e AGENT_AUTO_REGISTER_RESOURCES=docker \
     -e AGENT_AUTO_REGISTER_HOSTNAME=agent1 \
-    goagent-with-docker:latest) && docker exec -i -u root $CONTAINER_ID chmod 666 /var/run/docker.sock
+    goagent-with-docker:latest) && \
+     docker exec -i -u root $CONTAINER_ID chmod 666 /var/run/docker.sock && \
+     docker exec -i -u root $CONTAINER_ID docker login 127.0.0.1:5000 -u admin -p admin123
 }
 
 function startGoServer {
@@ -32,9 +35,6 @@ function startGoServer {
     -p8153:8153 -p8154:8154 \
     gocd/gocd-server:v18.6.0
 }
-
-#setup nexus server
-./setup-nexus.sh
 
 #docker build go agent with docker and rancher compose
 docker build -t goagent-with-docker:latest .
