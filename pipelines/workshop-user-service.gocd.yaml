@@ -26,7 +26,7 @@ pipelines:
           jobs:
             build:
               environment_variables:
-                DOCKER_REGISRTY: 127.0.0.1
+                DOCKER_REGISRTY: 127.0.0.1:5000
               tasks:
                 - exec:
                     command: bash
