@@ -1,5 +1,4 @@
 #!/bin/bash
--e
 
 function extractAgentAutoRegistryKey {
     echo $(grep 'agentAutoRegisterKey' GoServerData/config/cruise-config.xml | awk -F"agentAutoRegisterKey=\"" '{print $2}' | awk -F"\" webhookSecret" '{print $1}')
