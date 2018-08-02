@@ -18,6 +18,16 @@ pipelines:
                 DOCKER_REGISRTY: 127.0.0.1:5000
               tasks:
                 - exec:
+                    command: docker
+                    arguments:
+                      - "login"
+                      - "127.0.0.1:5000"
+                      - "-u"
+                      - "admin"
+                      - "-p"
+                      - "admin123"
+                    run_if: passed
+                - exec:
                     command: bash
                     arguments:
                       - "-e"
