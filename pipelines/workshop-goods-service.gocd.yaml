@@ -6,7 +6,7 @@ pipelines:
     # setting materials
     materials:
       app:
-        git: https://github.com/wuhan-training/mst-goods-service.git
+        git: https://github.com/wuhan-learning/mst-goods-service.git
         branch: master
     # setting stages
     stages:
