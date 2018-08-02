@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 docker run -d \
+--restart unless-stopped
 -v $(pwd)/NexusData:/nexus-data \
 -p 5000:5000 \
 -p 9091:8081 \
