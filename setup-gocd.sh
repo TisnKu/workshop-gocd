@@ -16,6 +16,7 @@ function waitUntilGoServerStarts {
 function startGoAgent {
     CONTAINER_ID=$(docker run -d \
     --net=host \
+    --name gocd-agent \
     -e WORKDIR=$(pwd)/GoAgentData \
     -e GO_SERVER_URL=https://localhost:8154/go \
     -v $(pwd)/GoAgentData:/godata \
@@ -23,9 +24,7 @@ function startGoAgent {
     -e AGENT_AUTO_REGISTER_KEY=$(extractAgentAutoRegistryKey) \
     -e AGENT_AUTO_REGISTER_RESOURCES=docker \
     -e AGENT_AUTO_REGISTER_HOSTNAME=agent1 \
-    goagent-with-docker:latest) && \
-     docker exec -i -u root $CONTAINER_ID chmod 666 /var/run/docker.sock && \
-     docker exec -i -u root $CONTAINER_ID docker login 127.0.0.1:5000 -u admin -p admin123
+    goagent-with-docker:latest) && docker exec -i -u root $CONTAINER_ID chmod 666 /var/run/docker.sock
 }
 
 function startGoServer {
@@ -33,7 +32,8 @@ function startGoServer {
     -v $(pwd)/GoServerData:/godata \
     -v $HOME:/home/go \
     -p8153:8153 -p8154:8154 \
-    gocd/gocd-server:v18.6.0
+    --name gocd-server \
+    gocd/gocd-server:v18.7.0
 }
 
 #docker build go agent with docker and rancher compose
